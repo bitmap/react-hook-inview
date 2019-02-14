@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 
 const useInView = ({
   root,
@@ -18,7 +18,7 @@ const useInView = ({
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const observer = new IntersectionObserver(callback, {
       root: root && root.current || null,
       rootMargin,
