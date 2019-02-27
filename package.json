@@ -35,5 +35,8 @@
     "@babel/preset-react": "^7.0.0",
     "eslint": "^5.13.0",
     "eslint-plugin-react": "^7.12.4"
+  },
+  "dependencies": {
+    "intersection-observer": "^0.5.1"
   }
 }

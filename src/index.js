@@ -8,6 +8,7 @@ const useInView = ({
   onEnter = () => null,
   onLeave = () => null,
   unobserveOnEnter = false,
+  polyfill = false
 }) => {
   const callback = ([entry], observer) => {
     if (entry.isIntersecting) {
@@ -19,6 +20,8 @@ const useInView = ({
   }
 
   useLayoutEffect(() => {
+    if (polyfill) IntersectionObserverPolyfill()
+
     const observer = new IntersectionObserver(callback, {
       root: root && root.current || null,
       rootMargin,
@@ -31,3 +34,14 @@ const useInView = ({
 }
 
 export default useInView
+
+export const useInViewPolyfill = (options) => useInView({ polyfill: true, ...options })
+
+export function IntersectionObserverPolyfill() {
+  if (typeof window.IntersectionObserver === 'undefined') {
+    window.IntersectionObserverPolyfill = true
+    // eslint-disable-next-line
+    require('intersection-observer')
+  }
+}
+
