@@ -8,6 +8,8 @@ Detect if an element is in the viewport using a [React Hook](https://reactjs.org
 npm install react-hook-inview
 ```
 
+> *Optional:* Install a [polyfill](https://www.npmjs.com/package/intersection-observer) for browsers that don't support `IntersectionObserver` yet (i.e. Safari 12).
+
 ## Usage
 
 Hooks can only be used inside functional components.
@@ -65,19 +67,6 @@ function onEnter([entry], observer) {
   // entry.time
 }
 ```
-
-### Polyfill
-Not all browser support Intersection Observer. The biggest outlier is Safari 12. As of version `1.1.0`, a [polyfill](https://www.npmjs.com/package/intersection-observer) is included for convenience, but loaded conditionally. If you need it, supply the option `polyfill: true` when you call the function, or import `useInViewPolyfill` and use that instead. This also adds `window.IntersectionObserverPolyfill` to the global scope, if you need to do feature detection.
-```js
-useInView({
-  polyfill: true,
-  ...options
-})
-```
-```js
-import { useInViewPolyfill } from 'react-hook-inview'
-```
-One last thing, the module exports a function `IntersectionObserverPolyfill()` which simply checks for `IntersectionObserver` within the global scope and shims it. It's the same function internally, but you can use this if you need to use the API without this particular module.
 
 ## License
 [MIT](https://github.com/bitmap/react-hook-inview/blob/master/LICENSE)
