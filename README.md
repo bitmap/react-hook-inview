@@ -16,7 +16,7 @@ Hooks can only be used inside functional components.
 
 ```js
 import React, { useState, useRef } from 'react'
-import useInView from 'react-hook-inview'
+import { useInView } from 'react-hook-inview'
 
 const Component = () => {
   const element = useRef()

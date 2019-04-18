@@ -1,8 +1,9 @@
 {
   "name": "react-hook-inview",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Hook for detecting when an element is in the viewport",
   "main": "dist/index.js",
+  "types": "src/index.d.ts",
   "repository": "https://github.com/bitmap/react-hook-inview",
   "scripts": {
     "build": "babel src -d dist",
@@ -35,7 +36,11 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "@cabe/eslint-config": "^0.1.0",
+    "@types/react": "^16.8.13",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
     "eslint": "^5.13.0",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint-plugin-react": "^7.12.4",
+    "typescript": "^3.4.3"
   }
 }

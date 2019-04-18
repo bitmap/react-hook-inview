@@ -30,4 +30,5 @@ const useInView = ({
   }, [])
 }
 
-export default useInView
+export default useInView // Deprecated
+export { useInView }

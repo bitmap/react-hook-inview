@@ -5,8 +5,10 @@
   },
   "extends": [
     "@cabe",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
@@ -19,7 +21,10 @@
   ],
   "settings": {
     "react": {
-      "version": "detect"
+      "version": "latest"
     }
+  },
+  "rules": {
+    "@typescript-eslint/indent": ["error", 2]
   }
 }
