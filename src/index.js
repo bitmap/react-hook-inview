@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useInView = ({
+export const useInView = ({
   root,
   rootMargin = '0px',
   threshold = 0,
@@ -29,6 +29,3 @@ const useInView = ({
     return () => observer.unobserve(target.current)
   }, [])
 }
-
-export default useInView // Deprecated
-export { useInView }
