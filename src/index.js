@@ -22,7 +22,7 @@ const useInView = ({
     const observer = new IntersectionObserver(callback, {
       root: root && root.current || null,
       rootMargin,
-      threshold
+      threshold,
     })
 
     if (target) observer.observe(target.current)

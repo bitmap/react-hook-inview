@@ -7,6 +7,7 @@
   "scripts": {
     "build": "babel src -d dist",
     "prepublishOnly": "rm -rf dist && npm run build",
+    "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -22,7 +23,7 @@
   ],
   "author": {
     "name": "Cabe Branson",
-    "url": "https://cabe.io"
+    "url": "https://cabe.dev"
   },
   "license": "MIT",
   "peerDependencies": {
@@ -33,6 +34,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "@cabe/eslint-config": "^0.1.0",
     "eslint": "^5.13.0",
     "eslint-plugin-react": "^7.12.4"
   }

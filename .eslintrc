@@ -4,7 +4,7 @@
     "es6": true
   },
   "extends": [
-    "eslint:recommended",
+    "@cabe",
     "plugin:react/recommended"
   ],
   "parserOptions": {
@@ -17,22 +17,9 @@
   "plugins": [
     "react"
   ],
-  "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ]
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
