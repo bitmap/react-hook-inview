@@ -42,15 +42,15 @@ const Component = () => {
 
 ### Options
 These are the default options. `target` is the only one that's required.
-```js
+```ts
 useInView({
-  target: null,             // *required* a ref to the component
-  root: null,               // optional, must be a parent of 'target' ref
-  rootMargin: '0px',        // accepts a string of 'px' or '%' values
-  threshold: 0,             // optionally use an array of numbers: [0, 0.5, 1]
-  unobserveOnEnter: false,  // set 'true' to run only once
-  onEnter: () => null,      // see below
-  onLeave: () => null,      // see below
+  target: RefObject<Element>,    // Required
+  root?: Element | null,         // Optional, must be a parent of 'target' ref
+  rootMargin?: string,           // '0px' or '0px 0px 0px 0px', also accepts '%' unit
+  threshold?: number | number[], // 0.5 or [0, 0.5, 1]
+  unobserveOnEnter?: boolean,    // Set 'true' to run only once
+  onEnter?: (entry?, observer?): void => null,    // See below
+  onLeave?: (entry?, observer?): void => null,    // See below
 })
 ```
 

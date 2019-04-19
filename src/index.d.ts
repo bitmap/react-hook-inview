@@ -7,8 +7,8 @@ type Observer = IntersectionObserver;
 
 export interface Options extends IntersectionObserverInit {
   target: RefObject<HTMLElement>;
-  onEnter?: (enrty: Entry, observer: Observer) => void;
-  onLeave?: (enrty: Entry, observer: Observer) => void;
+  onEnter?: (entry: Entry, observer: Observer) => void;
+  onLeave?: (entry: Entry, observer: Observer) => void;
   unobserveOnEnter?: boolean;
 }
 
