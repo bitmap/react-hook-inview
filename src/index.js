@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 export const useInView = ({
-  root,
+  root = null,
   rootMargin = '0px',
   threshold = 0,
   target = null,
@@ -20,7 +20,7 @@ export const useInView = ({
 
   useEffect(() => {
     const observer = new IntersectionObserver(callback, {
-      root: root && root.current || null,
+      root,
       rootMargin,
       threshold,
     })

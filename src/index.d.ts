@@ -2,14 +2,14 @@ import { RefObject } from 'react'
 
 declare module 'react-hook-inview'
 
-export interface Props {
+type Entry = IntersectionObserverEntry[];
+type Observer = IntersectionObserver;
+
+export interface Options extends IntersectionObserverInit {
   target: RefObject<HTMLElement>;
-  root?: RefObject<HTMLElement> | null;
-  rootMargin?: string;
-  threshold?: number | number[];
-  onEnter?: (entry?: IntersectionObserverEntry[], observer?: IntersectionObserver) => void;
-  onLeave?: (entry?: IntersectionObserverEntry[], observer?: IntersectionObserver) => void;
+  onEnter?: (enrty: Entry, observer: Observer) => void;
+  onLeave?: (enrty: Entry, observer: Observer) => void;
   unobserveOnEnter?: boolean;
 }
 
-declare function useInView(props: Props): void
+declare function useInView(options: Options): void
