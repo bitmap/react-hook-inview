@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2019-5-3
+### Changed
+- 100% TypeScript
+- `onEnter` and `onLeave` no long return an array, just a single `IntersectionObserverEntry`
+
 ## [2.0.2] - 2019-4-19
 ### Added
 - Add WIP TypeScript file

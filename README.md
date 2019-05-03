@@ -25,8 +25,8 @@ const Component = () => {
   useInView({
     target: element,
     threshold: 1,
-    onEnter: ([entry]) => setVisible(entry.isIntersecting),
-    onLeave: ([entry]) => setVisible(entry.isIntersecting),
+    onEnter: (entry) => setVisible(entry.isIntersecting),
+    onLeave: (entry) => setVisible(entry.isIntersecting),
   })
 
   return (
@@ -49,15 +49,15 @@ useInView({
   rootMargin?: string,           // '0px' or '0px 0px 0px 0px', also accepts '%' unit
   threshold?: number | number[], // 0.5 or [0, 0.5, 1]
   unobserveOnEnter?: boolean,    // Set 'true' to run only once
-  onEnter?: (entry?, observer?): void => null,    // See below
-  onLeave?: (entry?, observer?): void => null,    // See below
+  onEnter?: (entry?, observer?) => void, // See below
+  onLeave?: (entry?, observer?) => void, // See below
 })
 ```
 
-`onEnter` and `onLeave` recieve a function that returns an array of `IntersectionObserverEntry` and the observer itself.
+`onEnter` and `onLeave` recieve a function that returns an `IntersectionObserverEntry` and the observer itself.
 
 ```js
-function onEnter([entry], observer) {
+function onEnter(entry, observer) {
   // entry.boundingClientRect
   // entry.intersectionRatio
   // entry.intersectionRect
