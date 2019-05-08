@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "repository": "https://github.com/bitmap/react-hook-inview",
   "scripts": {
+    "prepare": "tsc",
     "build": "tsc",
     "prepublishOnly": "rm -rf dist && npm ci && npm run build",
     "lint": "eslint src/index.ts",
