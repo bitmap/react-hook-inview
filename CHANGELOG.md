@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2019-5-8
+### Changed
+- [PR from @krazyjakee](https://github.com/bitmap/react-hook-inview/pull/2)
+  - Fix a bug where es6 modules cannot be compiled
+  - Automatically export type definitions file on compile
+  - Add prepare script to package.json, change types file to `dist/index.d.ts
+
+### Added
+ - Added .npmignore to ignore `src` on npminstall
+
 ## [2.1.0] - 2019-5-3
 ### Changed
 - 100% TypeScript
@@ -39,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2019-2-12
 Initial release
 
+[2.2.1]: https://www.npmjs.com/package/react-hook-inview/v/2.2.1
 [2.0.2]: https://www.npmjs.com/package/react-hook-inview/v/2.0.2
 [2.0.1]: https://www.npmjs.com/package/react-hook-inview/v/2.0.1
 [2.0.0]: https://www.npmjs.com/package/react-hook-inview/v/2.0.0
