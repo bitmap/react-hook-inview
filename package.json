@@ -3,10 +3,11 @@
   "version": "2.1.0",
   "description": "React Hook for detecting when an element is in the viewport",
   "main": "dist/index.js",
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/bitmap/react-hook-inview",
   "scripts": {
     "build": "tsc",
+    "prepare": "npm run build",
     "prepublishOnly": "rm -rf dist && npm ci && npm run build",
     "lint": "eslint src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

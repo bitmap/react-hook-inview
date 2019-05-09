@@ -1,5 +1,15 @@
-import { useEffect } from 'react'
-import { Options } from './index.d'
+import { useEffect, RefObject } from 'react'
+
+interface Intersect {
+  (entry: IntersectionObserverEntry, observer: IntersectionObserver): void;
+}
+
+interface Options extends IntersectionObserverInit {
+  target: RefObject<Element>;
+  onEnter?: Intersect;
+  onLeave?: Intersect;
+  unobserveOnEnter?: boolean;
+}
 
 export const useInView = ({
   target,
