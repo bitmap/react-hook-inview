@@ -1,5 +1,7 @@
 # react-hook-inview
 
+[![npm version](https://img.shields.io/npm/v/react-hook-inview.svg?style=flat-square)](https://npmjs.org/package/react-hook-inview "View this project on npm")
+
 Detect if an element is in the viewport using a [React Hook](https://reactjs.org/docs/hooks-intro.html). Utilizes the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API), so check for [compatibility](https://caniuse.com/#feat=intersectionobserver).
 
 ## Install
