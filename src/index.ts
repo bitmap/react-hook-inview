@@ -42,5 +42,5 @@ export const useInView = ({
         return observer.unobserve(target.current)
       }
     }
-  }, [state ? [...state] : []])
+  }, state ? [...state] : [])
 }
