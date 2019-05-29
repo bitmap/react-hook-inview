@@ -14,6 +14,10 @@ npm install react-hook-inview
 
 ## Usage
 
+```js
+useInView(options, [state])
+```
+
 Hooks can only be used inside functional components.
 
 ```js
@@ -21,18 +25,18 @@ import React, { useState, useRef } from 'react'
 import { useInView } from 'react-hook-inview'
 
 const Component = () => {
-  const element = useRef()
+  const ref = useRef()
   const [isVisible, setVisible] = useState(false)
 
   useInView({
-    target: element,
+    target: ref,
     threshold: 1,
     onEnter: (entry) => setVisible(entry.isIntersecting),
     onLeave: (entry) => setVisible(entry.isIntersecting),
   })
 
   return (
-    <div ref={element}>
+    <div ref={ref}>
       {isVisible
         ? 'Hello World!'
         : ''
@@ -45,7 +49,7 @@ const Component = () => {
 ### Options
 These are the default options. `target` is the only one that's required.
 ```ts
-useInView({
+{
   target: RefObject<Element>,    // Required
   root?: Element | null,         // Optional, must be a parent of 'target' ref
   rootMargin?: string,           // '0px' or '0px 0px 0px 0px', also accepts '%' unit
@@ -53,9 +57,10 @@ useInView({
   unobserveOnEnter?: boolean,    // Set 'true' to run only once
   onEnter?: (entry?, observer?) => void, // See below
   onLeave?: (entry?, observer?) => void, // See below
-})
+}
 ```
 
+#### Callbacks
 `onEnter` and `onLeave` recieve a function that returns an `IntersectionObserverEntry` and the observer itself.
 
 ```js
@@ -68,6 +73,20 @@ function onEnter(entry, observer) {
   // entry.target
   // entry.time
 }
+```
+
+**NOTE**: If you supply an array to `threshold`, `onEnter` will be called when the element intersects with the top _and_ bottom of the viewport. `onLeave` will on trigger once the element has left the viewport at the first threshold specified.
+
+##### Accessing state in callback
+For performance reasons, the hook is only triggered once on mount/unmount. However, this means you can't access updated state in the `onEnter/onLeave` callbacks. An optional second argument will retrigger the hook to mitigate this.
+
+```js
+const [state, setState] = useState(false)
+
+useInView({
+  target: ref,
+  onEnter: () => console.log(state),
+}, [state])
 ```
 
 ## License
