@@ -1,4 +1,4 @@
-import { useEffect, RefObject } from 'react'
+import { useEffect, RefObject, ComponentState } from 'react'
 
 interface Intersect {
   (entry: IntersectionObserverEntry, observer: IntersectionObserver): void;
@@ -14,12 +14,12 @@ interface Options extends IntersectionObserverInit {
 export const useInView = ({
   target,
   root = null,
-  rootMargin = '0px',
+  rootMargin = '0px 0px 0px 0px',
   threshold = 0,
   onEnter = (): void => {},
   onLeave = (): void => {},
   unobserveOnEnter = false,
-}: Options): void => {
+}: Options, state?: ComponentState[]): void => {
   const callback: IntersectionObserverCallback = ([entry], observer): void => {
     if (entry.isIntersecting) {
       onEnter(entry, observer)
@@ -42,5 +42,5 @@ export const useInView = ({
         return observer.unobserve(target.current)
       }
     }
-  }, [])
+  }, [state ? [...state] : []])
 }
