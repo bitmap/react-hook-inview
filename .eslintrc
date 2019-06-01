@@ -17,7 +17,8 @@
     }
   },
   "plugins": [
-    "react"
+    "react",
+    "react-hooks"
   ],
   "settings": {
     "react": {
@@ -25,6 +26,7 @@
     }
   },
   "rules": {
+    "react-hooks/rules-of-hooks": "error",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/explicit-function-return-type": ["error", {
       "allowExpressions": true
