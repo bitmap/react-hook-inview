@@ -8,35 +8,86 @@ import {
   ComponentState,
 } from 'react'
 
-interface Intersect {
+type Ref = Element | null
+type SetRef = Dispatch<SetStateAction<Ref>>
+type ExternalState = ComponentState[]
+
+interface OnIntersectCallback {
   (entry: IntersectionObserverEntry, observer: IntersectionObserver): void;
 }
 
-interface Options extends IntersectionObserverInit {
-  target?: RefObject<Element | null>;
-  onEnter?: Intersect;
-  onLeave?: Intersect;
+interface UseInViewOptions extends IntersectionObserverInit {
+  target?: RefObject<Ref>;
+  onEnter?: OnIntersectCallback;
+  onLeave?: OnIntersectCallback;
   unobserveOnEnter?: boolean;
 }
 
-interface State {
+interface UseInViewState {
   isIntersecting: boolean;
   entry: IntersectionObserverEntry | null;
+  observer: IntersectionObserver | null;
 }
 
-type ExternalState = ComponentState[]
-
 type Hook = [
-  Dispatch<SetStateAction<Element | null>>,
-  State['isIntersecting'],
-  State['entry'],
-  IntersectionObserver | null,
+  SetRef,
+  UseInViewState['isIntersecting'],
+  UseInViewState['entry'],
+  UseInViewState['observer'],
 ]
 
-export const useInView = (
-  options?: Options,
-  externalState: ExternalState = []
-): Hook => {
+interface UseObserver {(
+  ref: Ref,
+  callback: IntersectionObserverCallback,
+  options: IntersectionObserverInit,
+  externalState: ExternalState
+): UseInViewState['observer'];}
+
+interface UseInViewEffect {(
+  callback: IntersectionObserverCallback,
+  options?: IntersectionObserverInit,
+  externalState?: ExternalState
+): SetRef; }
+
+interface UseInView {(
+  options?: UseInViewOptions,
+  externalState?: ExternalState
+): Hook;}
+
+const useObserver: UseObserver = (ref, callback, options, externalState) => {
+  const Observer = useRef<IntersectionObserver | null>(null)
+
+  useEffect(() => {
+    if (!ref) return
+    if (Observer.current) Observer.current.unobserve(ref)
+    Observer.current = new IntersectionObserver(callback, options)
+
+    const { current: currentObserver } = Observer
+
+    currentObserver.observe(ref)
+    return () => currentObserver.unobserve(ref)
+  }, [callback, options, ref, ...externalState])
+
+  return Observer.current
+}
+
+
+export const useInViewEffect: UseInViewEffect = (
+  callback,
+  options = {},
+  externalState = []
+) => {
+  const [ref, setRef] = useState<Ref>(null)
+
+  useObserver(ref, callback, options, externalState)
+
+  return setRef
+}
+
+export const useInView: UseInView = (
+  options,
+  externalState = []
+) => {
   const { ...ops } = options
 
   const {
@@ -49,11 +100,11 @@ export const useInView = (
     unobserveOnEnter,
   } = ops
 
-  const Observer = useRef<IntersectionObserver | null>(null)
-  const [ref, setRef] = useState<Element | null>(null)
-  const [state, setState] = useState<State>({
+  const [ref, setRef] = useState<Ref>(null)
+  const [state, setState] = useState<UseInViewState>({
     isIntersecting: false,
     entry: null,
+    observer: null,
   })
 
   const callback: IntersectionObserverCallback = ([entry], observer): void => {
@@ -64,6 +115,7 @@ export const useInView = (
     setState({
       isIntersecting,
       entry,
+      observer,
     })
 
     if (isIntersecting) {
@@ -79,22 +131,7 @@ export const useInView = (
     setRef(target.current)
   }, [target])
 
-  useEffect(() => {
-    if (!ref) return
-    if (Observer.current) Observer.current.unobserve(ref)
+  const observer = useObserver(ref, callback, { root, rootMargin, threshold }, externalState)
 
-    Observer.current = new IntersectionObserver(callback, {
-      root,
-      rootMargin,
-      threshold,
-    })
-
-    const { current: currentObserver } = Observer
-
-    currentObserver.observe(ref)
-
-    return () => currentObserver.unobserve(ref)
-  }, [ref, ...externalState])
-
-  return [setRef, state.isIntersecting, state.entry, Observer.current]
+  return [setRef, state.isIntersecting, state.entry, observer]
 }
