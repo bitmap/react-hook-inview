@@ -2,9 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/react-hook-inview.svg?style=flat-square)](https://npmjs.org/package/react-hook-inview "View this project on npm")
 
-Detect if an element is in the viewport using a [React Hook](https://reactjs.org/docs/hooks-intro.html). Utilizes the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API), so check for [compatibility](https://caniuse.com/#feat=intersectionobserver).
+Detect if an element is in the viewport using a [React Hook](https://reactjs.org/docs/hooks-intro.html). Utilizes the [Intersection Observer API], so check for [compatibility](https://caniuse.com/#feat=intersectionobserver).
 
-## Install
+# Install
 
 ```
 npm install react-hook-inview
@@ -12,16 +12,24 @@ npm install react-hook-inview
 
 > *Optional:* Install a [polyfill](https://www.npmjs.com/package/intersection-observer) for browsers that don't support `IntersectionObserver` yet (i.e. Safari 12).
 
-## Usage
+# Usage
+
+Hooks can only be used inside functional components.
+
+## `useInView`
+The hook in its most basic form returns a ref and a boolean.
 
 ```js
 const [ref, inView] = useInView()
 ```
 
-Hooks can only be used inside functional components.
+That's all you need to get started, but it does [a lot more](#api).
+
+### Example
+In this example, the boolean is used to toggle some text on and off when the element is fully in the viewport.
 
 ```js
-import React, { useState, useRef } from 'react'
+import React from 'react'
 import { useInView } from 'react-hook-inview'
 
 const Component = () => {
@@ -40,32 +48,33 @@ const Component = () => {
   )
 }
 ```
-## API
+### API
 The hook returns four variables.
 - A `ref`, used to reference a React node.
 - A `boolean` when the element is in the viewport.
 - The `IntersectionObserver` entry
 - The `IntersectionObserver` itself
+
 ```js
-const [ref, inView, entry, observer] = useInView(options, [state])
+const [ref, inView, entry, observer] = useInView(options, [...state])
 ```
 
-## Options
-These are the default options. `target` is the only one that's required.
+### Options
+These are the default options.
 ```ts
 {
-  target?: RefObject<Element>,   // *DEPRECATED*
-  root?: Element | null,         // Optional, must be a parent of ref element
-  rootMargin?: string,           // '0px' or '0px 0px 0px 0px', also accepts '%' unit
-  threshold?: number | number[], // 0.5 or [0, 0.5, 1]
-  unobserveOnEnter?: boolean,    // Set 'true' to run only once
+  root?: RefObject<Element> | null, // Optional, must be a parent of your ref
+  rootMargin?: string,              // '0px' or '0px 0px 0px 0px', also accepts '%' unit
+  threshold?: number | number[],    // 0.5 or [0, 0.5, 1]
+  unobserveOnEnter?: boolean,       // Set 'true' to run only once
   onEnter?: (entry?, observer?) => void, // See below
   onLeave?: (entry?, observer?) => void, // See below
+  target?: RefObject<Element> | null,    // *DEPRECATED* Supply a ref object create by React
 }
 ```
-**Note** If you're updating from < version `4.0.0.`, you might have noticed the API changed. The `target` option has been deprecated, but still works the same way.
+**Note** If you're updating from < version `4.0.0.`, you might have noticed an API changed. The `target` option has been deprecated, but still works the same way.
 
-## Callbacks
+### Callbacks
 `onEnter` and `onLeave` recieve a function that returns an `IntersectionObserverEntry` and the observer itself.
 
 ```js
@@ -94,5 +103,50 @@ const[ref, inView] = useInView({
 }, [state]) // <- Will rerender ref and update callback
 ```
 
+## `useInViewEffect`
+An alternate hook that allows you to just supply the intersection observer callback. This approach is gives you a little more flexibilty than using the callbacks in the original hook, and doesn't obfuscate the [Intersection Observer API] as much.
+
+```js
+const ref = useInView(callback, options, [...state])
+```
+
+### Example
+```js
+import React, { useState } from 'react'
+import { useInViewEffect } from 'react-hook-inview'
+
+const Component = () => {
+  const [isVisible, setIsVisible] = useState(false)
+
+  const ref = useInViewEffect(([entry], observer) => {
+      setIsVisible(entry.isIntersecting)
+      observer.unobserve(entry.target)
+  }, {threshold: 0.5})
+
+  return (
+    <div ref={ref}>
+      {isVisible
+        ? 'Hello World!'
+        : ''
+      }
+    </div>
+  )
+}
+```
+
+Keep in mind that the entries will be an array.
+
+### Options
+The `useInViewEffect` hook has more limited options that match the default API.
+```js
+{
+  root?: RefObject<Element> | null, // Optional, must be a parent of your ref
+  rootMargin?: string,              // '0px' or '0px 0px 0px 0px', also accepts '%' unit
+  threshold?: number | number[],    // 0.5 or [0, 0.5, 1]
+}
+```
+
 ## License
 [MIT](https://github.com/bitmap/react-hook-inview/blob/master/LICENSE)
+
+[Intersection Observer API]: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
