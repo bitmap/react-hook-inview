@@ -2,6 +2,7 @@ import {
   useEffect,
   useState,
   useRef,
+  useCallback,
   RefObject,
   Dispatch,
   SetStateAction,
@@ -26,22 +27,21 @@ interface UseInViewOptions extends IntersectionObserverInit {
 interface UseInViewState {
   isIntersecting: boolean;
   entry: IntersectionObserverEntry | null;
-  observer: IntersectionObserver | null;
 }
 
 type Hook = [
   SetRef,
   UseInViewState['isIntersecting'],
   UseInViewState['entry'],
-  UseInViewState['observer'],
+  IntersectionObserver | null,
 ]
 
 interface UseObserver {(
   ref: Ref,
   callback: IntersectionObserverCallback,
-  options: IntersectionObserverInit,
-  externalState: ExternalState
-): UseInViewState['observer'];}
+  options?: IntersectionObserverInit,
+  externalState?: ExternalState
+): IntersectionObserver | null;}
 
 interface UseInViewEffect {(
   callback: IntersectionObserverCallback,
@@ -54,19 +54,20 @@ interface UseInView {(
   externalState?: ExternalState
 ): Hook;}
 
-const useObserver: UseObserver = (ref, callback, options, externalState) => {
+const useObserver: UseObserver = (ref, callback, options = {}, externalState = []) => {
   const Observer = useRef<IntersectionObserver | null>(null)
+  const onIntersect = useCallback(callback, [ref, ...externalState])
 
   useEffect(() => {
     if (!ref) return
     if (Observer.current) Observer.current.unobserve(ref)
-    Observer.current = new IntersectionObserver(callback, options)
+    Observer.current = new IntersectionObserver(onIntersect, options)
 
     const { current: currentObserver } = Observer
 
     currentObserver.observe(ref)
     return () => currentObserver.unobserve(ref)
-  }, [callback, options, ref, ...externalState])
+  }, [ref, ...externalState])
 
   return Observer.current
 }
@@ -104,7 +105,6 @@ export const useInView: UseInView = (
   const [state, setState] = useState<UseInViewState>({
     isIntersecting: false,
     entry: null,
-    observer: null,
   })
 
   const callback: IntersectionObserverCallback = ([entry], observer): void => {
@@ -115,7 +115,6 @@ export const useInView: UseInView = (
     setState({
       isIntersecting,
       entry,
-      observer,
     })
 
     if (isIntersecting) {
