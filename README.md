@@ -12,11 +12,7 @@ npm install react-hook-inview
 
 > *Optional:* Install a [polyfill](https://www.npmjs.com/package/intersection-observer) for browsers that don't support `IntersectionObserver` yet (i.e. Safari 12).
 
-# Usage
-
-Hooks can only be used inside functional components.
-
-## `useInView`
+# `useInView`
 The hook in its most basic form returns a ref and a boolean.
 
 ```js
@@ -25,7 +21,7 @@ const [ref, inView] = useInView()
 
 That's all you need to get started, but it does [a lot more](#api).
 
-### Example
+## Example
 In this example, the boolean is used to toggle some text on and off when the element is fully in the viewport.
 
 ```js
@@ -48,7 +44,7 @@ const Component = () => {
   )
 }
 ```
-### API
+## API
 The hook returns four variables.
 - A `ref`, used to reference a React node.
 - A `boolean` when the element is in the viewport.
@@ -59,7 +55,7 @@ The hook returns four variables.
 const [ref, inView, entry, observer] = useInView(options, [...state])
 ```
 
-### Options
+## Options
 These are the default options.
 ```ts
 {
@@ -69,13 +65,13 @@ These are the default options.
   unobserveOnEnter?: boolean,       // Set 'true' to run only once
   onEnter?: (entry?, observer?) => void, // See below
   onLeave?: (entry?, observer?) => void, // See below
-  target?: RefObject<Element> | null,    // *DEPRECATED* Supply a ref object create by React
+  target?: RefObject<Element> | null,    // *DEPRECATED* Supply your own ref object
 }
 ```
-**Note** If you're updating from < version `4.0.0.`, you might have noticed an API changed. The `target` option has been deprecated, but still works the same way.
+**NOTE** If you're updating from < version `4.0.0.`, you might have noticed an API changed. The `target` option has been deprecated, but still works the same way.
 
-### Callbacks
-`onEnter` and `onLeave` recieve a function that returns an `IntersectionObserverEntry` and the observer itself.
+## `onEnter` & `onLeave` callbacks
+`onEnter` and `onLeave` recieve a callback function that returns an `IntersectionObserverEntry` and the observer itself. The two arguments are entirely optional.
 
 ```js
 function onEnter(entry, observer) {
@@ -89,9 +85,9 @@ function onEnter(entry, observer) {
 }
 ```
 
-**NOTE**: If you supply an array to `threshold`, `onEnter` will be called when the element intersects with the top _and_ bottom of the viewport. `onLeave` will on trigger once the element has left the viewport at the first threshold specified.
+**NOTE**: If you supply an array with multiple values to `threshold`, `onEnter` will be called each time the element intersects with the top _and_ bottom of the viewport. `onLeave` will on trigger once the element has left the viewport at the first threshold specified.
 
-### Accessing state in callback
+### Accessing external state in callback
 For performance reasons, the hook is only triggered once on mount/unmount. However, this means you can't access updated state in the `onEnter/onLeave` callbacks. An optional second argument will retrigger the hook to mitigate this.
 
 ```js
@@ -102,15 +98,16 @@ const[ref, inView] = useInView({
   onEnter: () => console.log(state),
 }, [state]) // <- Will rerender ref and update callback
 ```
+This will remount the intersection observer, and may have unintended side effects. Use this feature cautiously.
 
-## `useInViewEffect`
-An alternate hook that allows you to just supply the intersection observer callback. This approach is gives you a little more flexibilty than using the callbacks in the original hook, and doesn't obfuscate the [Intersection Observer API] as much.
+# `useInViewEffect`
+An alternate hook that allows you to just supply the intersection observer callback. This approach is gives you a little more flexibilty than using the callbacks in the original hook as it doesn't obfuscate the [Intersection Observer API] as much.
 
 ```js
 const ref = useInView(callback, options, [...state])
 ```
 
-### Example
+## Example
 ```js
 import React, { useState } from 'react'
 import { useInViewEffect } from 'react-hook-inview'
@@ -133,10 +130,9 @@ const Component = () => {
   )
 }
 ```
+Keep in mind that the first argument will return an array.
 
-Keep in mind that the entries will be an array.
-
-### Options
+## Options
 The `useInViewEffect` hook has more limited options that match the default API.
 ```js
 {
@@ -146,7 +142,7 @@ The `useInViewEffect` hook has more limited options that match the default API.
 }
 ```
 
-## License
+# License
 [MIT](https://github.com/bitmap/react-hook-inview/blob/master/LICENSE)
 
 [Intersection Observer API]: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
