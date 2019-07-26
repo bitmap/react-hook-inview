@@ -48,7 +48,7 @@ const Component = () => {
 The hook returns four variables.
 - A `ref`, used to reference a React node.
 - A `boolean` when the element is in the viewport.
-- The `IntersectionObserver` entry
+- The `IntersectionObserverEntry`
 - The `IntersectionObserver` itself
 
 ```js
@@ -71,7 +71,7 @@ These are the default options.
 **NOTE** If you're updating from < version `4.0.0.`, you might have noticed an API changed. The `target` option has been deprecated, but still works the same way.
 
 ## `onEnter` & `onLeave` callbacks
-`onEnter` and `onLeave` recieve a callback function that returns an `IntersectionObserverEntry` and the observer itself. The two arguments are entirely optional.
+`onEnter` and `onLeave` recieve a callback function that returns an `IntersectionObserverEntry` and the `IntersectionObserver` itself. The two arguments are entirely optional.
 
 ```js
 function onEnter(entry, observer) {
@@ -87,8 +87,8 @@ function onEnter(entry, observer) {
 
 **NOTE**: If you supply an array with multiple values to `threshold`, `onEnter` will be called each time the element intersects with the top _and_ bottom of the viewport. `onLeave` will on trigger once the element has left the viewport at the first threshold specified.
 
-### Accessing external state in callback
-For performance reasons, the hook is only triggered once on mount/unmount. However, this means you can't access updated state in the `onEnter/onLeave` callbacks. An optional second argument will retrigger the hook to mitigate this.
+### Accessing external state in callbacks
+For performance reasons, the hook is only triggered once on mount. However, this means you can't access updated state in the `onEnter/onLeave` callbacks. An optional second argument will retrigger the hook to mitigate this.
 
 ```js
 // Some other state
@@ -96,15 +96,15 @@ const [state, setState] = useState(false)
 
 const[ref, inView] = useInView({
   onEnter: () => console.log(state),
-}, [state]) // <- Will rerender ref and update callback
+}, [state]) // <- Will update callback
 ```
-This will remount the intersection observer, and may have unintended side effects. Use this feature cautiously.
+This will remount the intersection observer, and may have unintended side effects. Use this feature with caution.
 
 # `useInViewEffect`
 An alternate hook that allows you to just supply the intersection observer callback. This approach is gives you a little more flexibilty than using the callbacks in the original hook as it doesn't obfuscate the [Intersection Observer API] as much.
 
 ```js
-const ref = useInView(callback, options, [...state])
+const ref = useInViewEffect(callback, options, [...state])
 ```
 
 ## Example
@@ -116,9 +116,11 @@ const Component = () => {
   const [isVisible, setIsVisible] = useState(false)
 
   const ref = useInViewEffect(([entry], observer) => {
-      setIsVisible(entry.isIntersecting)
+    if (entry.isIntersecting) {
       observer.unobserve(entry.target)
-  }, {threshold: 0.5})
+    }
+    setIsVisible(entry.isIntersecting)
+  }, { threshold: 0.5 })
 
   return (
     <div ref={ref}>
@@ -133,7 +135,7 @@ const Component = () => {
 Keep in mind that the first argument will return an array.
 
 ## Options
-The `useInViewEffect` hook has more limited options that match the default API.
+The `useInViewEffect` hook has more limited options that mirror the default API.
 ```js
 {
   root?: RefObject<Element> | null, // Optional, must be a parent of your ref
