@@ -14,19 +14,19 @@ type SetRef = Dispatch<SetStateAction<Ref>>
 type ExternalState = ComponentState[]
 
 interface OnIntersectCallback {
-  (entry: IntersectionObserverEntry, observer: IntersectionObserver): void;
+  (entry: IntersectionObserverEntry, observer: IntersectionObserver): void
 }
 
 interface UseInViewOptions extends IntersectionObserverInit {
-  target?: RefObject<Ref>;
-  onEnter?: OnIntersectCallback;
-  onLeave?: OnIntersectCallback;
-  unobserveOnEnter?: boolean;
+  target?: RefObject<Ref>
+  onEnter?: OnIntersectCallback
+  onLeave?: OnIntersectCallback
+  unobserveOnEnter?: boolean
 }
 
 interface UseInViewState {
-  isIntersecting: boolean;
-  entry: IntersectionObserverEntry | null;
+  isIntersecting: boolean
+  entry: IntersectionObserverEntry | null
 }
 
 type Hook = [
@@ -41,18 +41,18 @@ interface UseObserver {(
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit,
   externalState?: ExternalState
-): IntersectionObserver | null;}
+): IntersectionObserver | null }
 
 interface UseInViewEffect {(
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit,
   externalState?: ExternalState
-): SetRef; }
+): SetRef }
 
 interface UseInView {(
   options?: UseInViewOptions,
   externalState?: ExternalState
-): Hook;}
+): Hook }
 
 const useObserver: UseObserver = (ref, callback, options = {}, externalState = []) => {
   const Observer = useRef<IntersectionObserver | null>(null)

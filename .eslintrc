@@ -5,8 +5,8 @@
   },
   "extends": [
     "@cabe",
+    "@cabe/typescript",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -27,10 +27,5 @@
   },
   "rules": {
     "react-hooks/rules-of-hooks": "error",
-    "@typescript-eslint/indent": ["error", 2],
-    "@typescript-eslint/explicit-function-return-type": ["error", {
-      "allowExpressions": true,
-      "allowTypedFunctionExpressions": true
-    }]
   }
 }

@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@cabe/eslint-config": "latest",
+    "@cabe/eslint-config-typescript": "latest",
     "@types/react": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
