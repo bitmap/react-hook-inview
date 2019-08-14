@@ -13,7 +13,7 @@
     "prepublishOnly": "npm run clean && npm ci && npm run build",
     "release": "np",
     "lint": "eslint src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "keywords": [
     "react",
