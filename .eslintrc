@@ -6,7 +6,7 @@
   "extends": [
     "@cabe",
     "@cabe/typescript",
-    "plugin:react/recommended",
+    "plugin:react/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -26,6 +26,6 @@
     }
   },
   "rules": {
-    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/rules-of-hooks": "error"
   }
 }

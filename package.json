@@ -32,7 +32,8 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.8.6"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@cabe/eslint-config": "latest",
