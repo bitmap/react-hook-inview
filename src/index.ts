@@ -76,7 +76,7 @@ const useObserver: UseObserver = (ref, callback, options = {}, externalState = [
 export const useInViewEffect: UseInViewEffect = (
   callback,
   options = {},
-  externalState = []
+  externalState = [],
 ) => {
   const [ref, setRef] = useState<Ref>(null)
 
@@ -87,7 +87,7 @@ export const useInViewEffect: UseInViewEffect = (
 
 export const useInView: UseInView = (
   options,
-  externalState = []
+  externalState = [],
 ) => {
   const { ...ops } = options
 
