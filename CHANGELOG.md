@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] - 2020-3-27
+### Changed
+- Fix a bug in Firefox where "inView" always returns true if threshold is not 0
+
 ## [4.1.2] - 2019-8-14
 ### Added
 - Added ES module support
@@ -38,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.1.0] - 2019-5-3
 ### Changed
 - 100% TypeScript
-- `onEnter` and `onLeave` no long return an array, just a single `IntersectionObserverEntry`
+- `onEnter` and `onLeave` no longer return an array, just a single `IntersectionObserverEntry`
 
 ## [2.0.2] - 2019-4-19
 ### Added
@@ -70,7 +74,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2019-2-12
 Initial release
 
-[4.1.2]: https://www.npmjs.com/package/react-hook-inview/
+[4.2.0]: https://www.npmjs.com/package/react-hook-inview/
+[4.1.2]: https://www.npmjs.com/package/react-hook-inview/v/4.1.2
 [4.0.0]: https://www.npmjs.com/package/react-hook-inview/v/4.0.0
 [3.0.0]: https://www.npmjs.com/package/react-hook-inview/v/3.0.0
 [2.2.2]: https://www.npmjs.com/package/react-hook-inview/v/2.2.2
