@@ -25,13 +25,13 @@ interface UseInViewOptions extends IntersectionObserverInit {
 }
 
 interface UseInViewState {
-  isIntersecting: boolean
+  inView: boolean
   entry: IntersectionObserverEntry | null
 }
 
 type Hook = [
   SetRef,
-  UseInViewState['isIntersecting'],
+  UseInViewState['inView'],
   UseInViewState['entry'],
   IntersectionObserver | null,
 ]
@@ -103,25 +103,31 @@ export const useInView: UseInView = (
 
   const [ref, setRef] = useState<Ref>(null)
   const [state, setState] = useState<UseInViewState>({
-    isIntersecting: false,
+    inView: false,
     entry: null,
   })
 
   const callback: IntersectionObserverCallback = ([entry], observer): void => {
     if (!ref || !entry || !observer) return
 
-    const { isIntersecting } = entry
+    const { isIntersecting, intersectionRatio } = entry
 
-    setState({
-      isIntersecting,
-      entry,
-    })
+    if (intersectionRatio >= 0) {
+      const inThreshold = observer.thresholds.some(threshold => intersectionRatio >= threshold)
 
-    if (isIntersecting) {
-      onEnter && onEnter(entry, observer)
-      if (unobserveOnEnter) observer.unobserve(ref)
-    } else {
-      onLeave && onLeave(entry, observer)
+      const inView = inThreshold && isIntersecting
+
+      setState({
+        inView,
+        entry,
+      })
+
+      if (inView) {
+        onEnter && onEnter(entry, observer)
+        if (unobserveOnEnter) observer.unobserve(ref)
+      } else {
+        onLeave && onLeave(entry, observer)
+      }
     }
   }
 
@@ -132,5 +138,5 @@ export const useInView: UseInView = (
 
   const observer = useObserver(ref, callback, { root, rootMargin, threshold }, externalState)
 
-  return [setRef, state.isIntersecting, state.entry, observer]
+  return [setRef, state.inView, state.entry, observer]
 }
