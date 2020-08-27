@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "declaration": true
   },
   "include": [
@@ -26,6 +26,7 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "src/__tests__",
   ]
 }

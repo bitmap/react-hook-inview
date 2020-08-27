@@ -6,7 +6,8 @@
   "extends": [
     "@cabe",
     "@cabe/typescript",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -16,16 +17,12 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "react",
-    "react-hooks"
-  ],
   "settings": {
     "react": {
       "version": "latest"
     }
   },
   "rules": {
-    "react-hooks/rules-of-hooks": "error"
+    "react/prop-types": "off"
   }
 }
