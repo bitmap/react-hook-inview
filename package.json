@@ -11,9 +11,8 @@
     "build": "npm run clean && tsc && tsc -p tsconfig.esm.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm run clean && npm ci && npm run build",
-    "release": "np",
     "lint": "eslint src/index.ts",
-    "test": "echo \"Error: no test specified\""
+    "test": "jest"
   },
   "keywords": [
     "react",
@@ -32,19 +31,25 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
   },
   "devDependencies": {
     "@cabe/eslint-config": "latest",
     "@cabe/eslint-config-typescript": "latest",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^10.4.9",
+    "@types/jest": "^26.0.10",
     "@types/react": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "eslint": "latest",
     "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "latest",
-    "np": "*",
+    "jest": "^26.4.2",
+    "react": "^16.9.0",
+    "react-dom": "16.9.0",
+    "ts-jest": "^26.3.0",
     "typescript": "latest"
   }
 }
