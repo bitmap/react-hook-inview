@@ -22,15 +22,18 @@ const useObserver: UseObserver = (
   options = {},
   externalState = [],
 ) => {
+
+  const {
+    root,
+    rootMargin,
+    threshold,
+  } = options
+
   const target = useRef<Element | null>(null)
   const observer = useRef<IntersectionObserver | null>(null)
 
   const setTarget = useCallback(node => {
-    const {
-      root = null,
-      rootMargin = '0px 0px 0px 0px',
-      threshold = 0,
-    } = options
+
     if (target.current) observer.current?.unobserve(target.current)
 
     if (!node) return
@@ -40,7 +43,7 @@ const useObserver: UseObserver = (
     target.current = node
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, ...externalState])
+  }, [target, root, rootMargin, threshold, ...externalState])
 
   return setTarget
 }

@@ -82,4 +82,32 @@ describe('useInView', () => {
 
     expect(getByText('false')).toBeInTheDocument()
   })
+
+
+  test('root option', async () => {
+    const ComponentWithRoot: React.FC = () => {
+      const rootRef = useRef<HTMLDivElement | null>(null)
+
+      const [ref, inView, entry, observer] = useInView({
+        root: rootRef.current,
+      })
+      const root = observer?.root
+      const text = !!root
+
+      return (
+        <div ref={rootRef}>
+          <div ref={ref}>
+            {text.toString()}
+          </div>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<ComponentWithRoot />)
+
+    mockInView(getByText('false'), false) // Renders 'undefined' here
+    mockInView(getByText('false'), false) // Renders 'null' here
+
+    expect(getByText('true')).toBeInTheDocument()
+  })
 })

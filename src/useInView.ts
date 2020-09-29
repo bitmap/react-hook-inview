@@ -48,6 +48,12 @@ const useInView: UseInView = (
     observer: null,
   })
 
+  const {
+    root,
+    rootMargin,
+    threshold,
+  } = options
+
   const callback = useCallback<IntersectionObserverCallback>(([entry], observer) => {
     if (!entry || !observer) return
 
@@ -80,13 +86,7 @@ const useInView: UseInView = (
         onLeave && onLeave(entry, observer)
       }
     }
-  }, [options])
-
-  const {
-    root,
-    rootMargin,
-    threshold,
-  } = options
+  }, [root, rootMargin, threshold])
 
   const setTarget = useObserver(callback, { root, rootMargin, threshold }, externalState)
 
