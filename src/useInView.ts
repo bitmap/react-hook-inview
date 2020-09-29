@@ -83,9 +83,9 @@ const useInView: UseInView = (
   }, [options])
 
   const {
-    root = null,
-    rootMargin = '0px 0px 0px 0px',
-    threshold = 0,
+    root,
+    rootMargin,
+    threshold,
   } = options
 
   const setTarget = useObserver(callback, { root, rootMargin, threshold }, externalState)
