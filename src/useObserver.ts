@@ -33,15 +33,16 @@ const useObserver: UseObserver = (
   const observer = useRef<IntersectionObserver | null>(null)
 
   const setTarget = useCallback(node => {
+    if (target.current) {
+      observer.current?.disconnect()
+      observer.current = null
+    }
 
-    if (target.current) observer.current?.unobserve(target.current)
-
-    if (!node) return
-
-    observer.current = new IntersectionObserver(callback, { root, rootMargin, threshold })
-    observer.current.observe(node)
-    target.current = node
-
+    if (node) {
+      observer.current = new IntersectionObserver(callback, { root, rootMargin, threshold })
+      observer.current.observe(node)
+      target.current = node
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target, root, rootMargin, threshold, ...externalState])
 
