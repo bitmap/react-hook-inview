@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.1] - 2020-10-9
+
+### Changed
+
+- Fix a bug where `root` option was not updating observer unless ref was passed as a dependency
+
 ## [4.3.0] - 2020-8-28
 
 ### Added
@@ -112,7 +118,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
-[4.3.0]: https://www.npmjs.com/package/react-hook-inview/
+[4.3.1]: https://www.npmjs.com/package/react-hook-inview/
+[4.3.0]: https://www.npmjs.com/package/react-hook-inview/v/4.3.0
 [4.2.0]: https://www.npmjs.com/package/react-hook-inview/v/4.2.0
 [4.1.2]: https://www.npmjs.com/package/react-hook-inview/v/4.1.2
 [4.0.0]: https://www.npmjs.com/package/react-hook-inview/v/4.0.0
