@@ -34,6 +34,7 @@ const useObserver: UseObserver = (
 
   const setTarget = useCallback(node => {
     if (target.current) {
+      observer.current?.unobserve(target.current)
       observer.current?.disconnect()
       observer.current = null
     }

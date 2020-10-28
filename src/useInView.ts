@@ -63,7 +63,7 @@ const useInView: UseInView = (
       unobserveOnEnter,
     } = options
 
-    const { isIntersecting, intersectionRatio } = entry
+    const { target, isIntersecting, intersectionRatio } = entry
     const { thresholds } = observer
 
     if (intersectionRatio >= 0) {
@@ -77,7 +77,10 @@ const useInView: UseInView = (
       })
 
       // unobserveOnEnter
-      if (inView && unobserveOnEnter) observer.disconnect()
+      if (inView && unobserveOnEnter) {
+        observer.unobserve(target)
+        observer.disconnect()
+      }
 
       // Legacy callbacks
       if (inView) {
