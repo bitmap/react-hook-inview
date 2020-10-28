@@ -89,7 +89,7 @@ const useInView: UseInView = (
         onLeave && onLeave(entry, observer)
       }
     }
-  }, [root, rootMargin, threshold])
+  }, [options])
 
   const setTarget = useObserver(callback, { root, rootMargin, threshold }, externalState)
 
