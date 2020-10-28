@@ -33,9 +33,9 @@ const useObserver: UseObserver = (
   const observer = useRef<IntersectionObserver | null>(null)
 
   const setTarget = useCallback(node => {
-    if (target.current) {
-      observer.current?.unobserve(target.current)
-      observer.current?.disconnect()
+    if (target.current && observer.current) {
+      observer.current.unobserve(target.current)
+      observer.current.disconnect()
       observer.current = null
     }
 
