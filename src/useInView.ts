@@ -12,12 +12,20 @@ interface State {
   observer: IntersectionObserver | null
 }
 
-type onIntersect = (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void
-interface Options extends IntersectionObserverInit {
+export interface Options extends IntersectionObserverInit {
   unobserveOnEnter?: boolean
+  /**
+   * @deprecated Use setRef callback.
+   */
   target?: React.RefObject<Element | null>
-  onEnter?: onIntersect
-  onLeave?: onIntersect
+  /**
+   * @deprecated Use hook `useInViewEffect` to access observer callback.
+   */
+  onEnter?: (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void
+  /**
+   * @deprecated Use hook `useInViewEffect` to access observer callback.
+   */
+  onLeave?: (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void
 }
 
 interface UseInView {
