@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { render } from '@testing-library/react'
 import { useInViewEffect } from '..'
-import { mockInView } from '../../test/utils'
+import { mockInView } from '../__mocks__/mockInView'
 
 describe('useInViewEffect', () => {
   const Component: React.FC = () => {

@@ -1,58 +1,86 @@
 import React, { useState, useRef } from 'react'
 import { render } from '@testing-library/react'
+import { renderHook, act } from '@testing-library/react-hooks'
 import { useInView } from '..'
-import { mockInView } from '../../test/utils'
+import { mockInView } from '../__mocks__/mockInView'
 
 describe('useInView', () => {
-  const Component: React.FC = () => {
-    const [ref, inView] = useInView()
+  test('sets ref', async () => {
+    const { result } = renderHook(() => useInView())
+    let [setRef, inView, entry] = result.current
 
-    return (
-      <div ref={ref}>
-        {inView.toString()}
-      </div>
-    )
-  }
+    const element = document.createElement('div')
 
-  test('renders unobserved', () => {
-    const { getByText } = render(<Component />)
-    expect(getByText('false')).toBeInTheDocument()
+    act(() => {
+      setRef(element)
+      mockInView(element, false)
+    })
+
+    ;[setRef, inView, entry] = result.current
+    expect(entry?.target).toBe(element)
+    expect(inView).toBe(false)
   })
 
-  test('renders observed', async () => {
-    const { getByText } = render(<Component />)
+  test('sets inview', async () => {
+    const { result } = renderHook(() => useInView())
+    let [setRef, inView, entry] = result.current
 
-    mockInView(getByText('false'), true)
+    const element = document.createElement('div')
 
-    expect(getByText('true')).toBeInTheDocument()
+    act(() => {
+      setRef(element)
+      mockInView(element, true)
+    })
+
+    ;[setRef, inView, entry] = result.current
+    expect(entry?.target).toBe(element)
+    expect(inView).toBe(true)
   })
 
-  test('renders unobserved and observed', async () => {
-    const { getByText } = render(<Component />)
-    mockInView(getByText('false'), true)
-    mockInView(getByText('true'), false)
+  test('toggles inview', async () => {
+    const { result } = renderHook(() => useInView())
+    let [setRef, inView] = result.current
 
-    expect(getByText('false')).toBeInTheDocument()
+    const element = document.createElement('div')
+
+    act(() => {
+      setRef(element)
+      mockInView(element, true)
+    })
+
+    ;[setRef, inView] = result.current
+    expect(inView).toBe(true)
+
+    act(() => {
+      mockInView(element, false)
+    })
+
+    ;[setRef, inView] = result.current
+    expect(inView).toBe(false)
   })
 
   test('unobserves on enter', async () => {
-    const Component: React.FC = () => {
-      const [ref, inView] = useInView({
-        unobserveOnEnter: true,
-      })
+    const { result } = renderHook(() => useInView({
+      unobserveOnEnter: true,
+    }))
+    let [setRef, inView] = result.current
 
-      return (
-        <div ref={ref}>
-          {inView.toString()}
-        </div>
-      )
-    }
-    const { getByText } = render(<Component />)
+    const element = document.createElement('div')
 
-    mockInView(getByText('false'), true)
-    mockInView(getByText('true'), false)
+    act(() => {
+      setRef(element)
+      mockInView(element, true)
+    })
 
-    expect(getByText('true')).toBeInTheDocument()
+    ;[setRef, inView] = result.current
+    expect(inView).toBe(true)
+
+    act(() => {
+      mockInView(element, false)
+    })
+
+    ;[setRef, inView] = result.current
+    expect(inView).toBe(true)
   })
 
   test('legacy methods', async () => {
@@ -88,7 +116,7 @@ describe('useInView', () => {
     const ComponentWithRoot: React.FC = () => {
       const rootRef = useRef<HTMLDivElement | null>(null)
 
-      const [ref, inView, entry, observer] = useInView({
+      const [ref, ,, observer] = useInView({
         root: rootRef.current,
       })
       const root = observer?.root

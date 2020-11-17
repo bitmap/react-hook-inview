@@ -12,7 +12,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run clean && npm ci && npm run build",
     "lint": "eslint src/index.ts",
-    "test": "jest"
+    "test": "jest",
   },
   "keywords": [
     "react",
@@ -39,6 +39,7 @@
     "@cabe/eslint-config-typescript": "latest",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
+    "@testing-library/react-hooks": "^3.4.2",
     "@types/jest": "^26.0.10",
     "@types/react": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
@@ -49,7 +50,21 @@
     "jest": "^26.4.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-test-renderer": "^17.0.1",
     "ts-jest": "^26.3.0",
     "typescript": "latest"
+  },
+  "dependencies": {},
+  "jest": {
+    "roots": ["<rootDir>/src"],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/test"
+    ]
   }
 }
