@@ -8,7 +8,7 @@ interface UseObserver {
     callback: IntersectionObserverCallback,
     options?: IntersectionObserverInit,
     externalState?: React.ComponentState[]
-  ): React.Dispatch<React.SetStateAction<Element | null>>
+  ): (node: Element | null) => void
 }
 
 /**
@@ -19,18 +19,14 @@ interface UseObserver {
  */
 const useObserver: UseObserver = (
   callback,
-  options = {},
-  externalState = [],
+  options,
+  externalState,
 ) => {
-
-  const {
-    root,
-    rootMargin,
-    threshold,
-  } = options
 
   const target = useRef<Element | null>(null)
   const observer = useRef<IntersectionObserver | null>(null)
+  const { root, rootMargin, threshold } = options || {}
+  const dependencies = externalState || []
 
   const setTarget = useCallback(node => {
     if (target.current && observer.current) {
@@ -45,7 +41,7 @@ const useObserver: UseObserver = (
       target.current = node
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, root, rootMargin, threshold, ...externalState])
+  }, [target, root, rootMargin, threshold, ...dependencies])
 
   return setTarget
 }

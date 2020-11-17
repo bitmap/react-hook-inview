@@ -28,28 +28,22 @@ export interface Options extends IntersectionObserverInit {
   onLeave?: (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void
 }
 
-interface UseInView {
-  (
-    options?: Options,
-    externalState?: React.ComponentState[]
-  ): [
-    React.Dispatch<React.SetStateAction<Element | null>>,
-    State['inView'],
-    State['entry'],
-    State['observer'],
-  ]
-}
-
+interface UseInView {(
+  options?: Options,
+  externalState?: React.ComponentState[]
+):[
+  (node: Element | null) => void,
+  State['inView'],
+  State['entry'],
+  State['observer'],
+]}
 
 /**
  * useInView
  * @param options IntersectionObserverInit
  * @param externalState React.ComponentState[]
  */
-const useInView: UseInView = (
-  options = {},
-  externalState = [],
-) => {
+const useInView: UseInView = (options, externalState) => {
   const [state, setState] = useState<State>({
     inView: false,
     entry: null,
@@ -60,50 +54,45 @@ const useInView: UseInView = (
     root,
     rootMargin,
     threshold,
-  } = options
+    unobserveOnEnter,
+    target,
+    onEnter,
+    onLeave,
+  } = options || {}
+
+  const dependencies = externalState || []
 
   const callback = useCallback<IntersectionObserverCallback>(([entry], observer) => {
-    if (!entry || !observer) return
+    const inThreshold = observer.thresholds.some(t => entry.intersectionRatio >= t)
+    const inView = inThreshold && entry.isIntersecting
 
-    const {
-      onEnter,
-      onLeave,
-      unobserveOnEnter,
-    } = options
+    setState({
+      inView,
+      entry,
+      observer,
+    })
 
-    const { target, isIntersecting, intersectionRatio } = entry
-    const { thresholds } = observer
-
-    if (intersectionRatio >= 0) {
-      const inThreshold = thresholds.some(t => intersectionRatio >= t)
-      const inView = inThreshold && isIntersecting
-
-      setState({
-        inView,
-        entry,
-        observer,
-      })
-
-      // unobserveOnEnter
-      if (inView && unobserveOnEnter) {
-        observer.unobserve(target)
-        observer.disconnect()
-      }
-
-      // Legacy callbacks
-      if (inView) {
-        onEnter && onEnter(entry, observer)
-      } else {
-        onLeave && onLeave(entry, observer)
-      }
+    // unobserveOnEnter
+    if (inView && unobserveOnEnter) {
+      observer.unobserve(entry.target)
+      observer.disconnect()
     }
-  }, [options])
 
-  const setTarget = useObserver(callback, { root, rootMargin, threshold }, externalState)
+    // Legacy callbacks
+    if (inView) {
+      onEnter?.(entry, observer)
+    } else {
+      onLeave?.(entry, observer)
+    }
+  }, [onEnter, onLeave, unobserveOnEnter])
+
+  const setTarget = useObserver(
+    callback,
+    { root, rootMargin, threshold },
+    [unobserveOnEnter, ...dependencies],
+  )
 
   // Legacy 'target' option
-  const { target } = options
-
   useEffect(() => {
     if (target?.current) setTarget(target.current)
   }, [target, setTarget])
