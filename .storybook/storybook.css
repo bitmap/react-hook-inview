@@ -1,0 +1,66 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  color: white;
+}
+
+.wrapper {
+  height: 200vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructions {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 32px;
+  border-radius: 32px;
+  line-height: 32px;
+}
+
+.component {
+  opacity: 0.25;
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  line-height: 200px;
+  background: silver;
+  position: absolute;
+  top: 120%;
+  left: 50vw;
+  transition: 200ms ease;
+  transform: translateX(-50%);
+}
+
+.component.in-view {
+  opacity: 1;
+  background: rgb(8, 145, 209);
+}
+
+.indicator {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 32px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 32px;
+  color: white;
+  line-height: 32px;
+}
+
+.indicator.in-view {
+  background: rgb(8, 145, 209);
+}
+
+.indicator span {
+  display: inline-block;
+  width: 35px;
+  font-weight: bold;
+}
