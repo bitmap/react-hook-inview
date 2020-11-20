@@ -5,6 +5,9 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": "https://github.com/bitmap/react-hook-inview",
   "scripts": {
     "clean": "rm -rf dist",
