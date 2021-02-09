@@ -40,19 +40,19 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.12.13",
     "@cabe/eslint-config": "latest",
     "@cabe/eslint-config-typescript": "latest",
-    "@storybook/addon-actions": "^6.1.10",
-    "@storybook/addon-essentials": "^6.1.10",
-    "@storybook/addon-links": "^6.1.10",
-    "@storybook/addons": "^6.1.10",
-    "@storybook/react": "^6.1.10",
-    "@storybook/theming": "^6.1.10",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/react-hooks": "^3.4.2",
-    "@types/jest": "^26.0.16",
+    "@storybook/addon-actions": "^6.1.17",
+    "@storybook/addon-essentials": "^6.1.17",
+    "@storybook/addon-links": "^6.1.17",
+    "@storybook/addons": "^6.1.17",
+    "@storybook/react": "^6.1.17",
+    "@storybook/theming": "^6.1.17",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/react-hooks": "^5.0.3",
+    "@types/jest": "^26.0.20",
     "@types/react": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
@@ -65,10 +65,9 @@
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
     "react-test-renderer": "^17.0.1",
-    "ts-jest": "^26.4.4",
+    "ts-jest": "^26.5.1",
     "typescript": "latest"
   },
-  "dependencies": {},
   "jest": {
     "roots": [
       "<rootDir>/src"

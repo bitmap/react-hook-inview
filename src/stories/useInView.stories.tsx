@@ -6,7 +6,6 @@ const InView: React.FC<Options> = args => {
   const { rootMargin, threshold, unobserveOnEnter } = args
 
   const [ref, inView] = useInView({
-    root: (document as unknown) as Element,
     rootMargin,
     threshold,
     unobserveOnEnter,

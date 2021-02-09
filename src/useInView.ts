@@ -28,39 +28,32 @@ export interface Options extends IntersectionObserverInit {
   onLeave?: (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void
 }
 
-interface UseInView {(
-  options?: Options,
-  externalState?: React.ComponentState[]
-):[
-  (node: Element | null) => void,
-  State['inView'],
-  State['entry'],
-  State['observer'],
-]}
+interface UseInView {
+  (
+    options?: Options,
+    externalState?: React.ComponentState[]
+  ): [
+    (node: Element | null) => void,
+    State['inView'],
+    State['entry'],
+    State['observer'],
+  ]
+}
 
 /**
  * useInView
  * @param options IntersectionObserverInit
  * @param externalState React.ComponentState[]
  */
-const useInView: UseInView = (options, externalState) => {
+const useInView: UseInView = (
+  { root, rootMargin, threshold, unobserveOnEnter, target, onEnter, onLeave } = {},
+  externalState = [],
+) => {
   const [state, setState] = useState<State>({
     inView: false,
     entry: null,
     observer: null,
   })
-
-  const {
-    root,
-    rootMargin,
-    threshold,
-    unobserveOnEnter,
-    target,
-    onEnter,
-    onLeave,
-  } = options || {}
-
-  const dependencies = externalState || []
 
   const callback = useCallback<IntersectionObserverCallback>(([entry], observer) => {
     const inThreshold = observer.thresholds.some(t => entry.intersectionRatio >= t)
@@ -89,7 +82,7 @@ const useInView: UseInView = (options, externalState) => {
   const setTarget = useObserver(
     callback,
     { root, rootMargin, threshold },
-    [unobserveOnEnter, ...dependencies],
+    [unobserveOnEnter, ...externalState],
   )
 
   // Legacy 'target' option
