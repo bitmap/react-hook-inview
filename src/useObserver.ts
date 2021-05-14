@@ -1,7 +1,7 @@
 import {
   useRef,
   useCallback,
-} from 'react'
+} from "react";
 
 interface UseObserver {
   (
@@ -23,25 +23,25 @@ const useObserver: UseObserver = (
   externalState = [],
 ) => {
 
-  const target = useRef<Element | null>(null)
-  const observer = useRef<IntersectionObserver | null>(null)
+  const target = useRef<Element | null>(null);
+  const observer = useRef<IntersectionObserver | null>(null);
 
-  const setTarget = useCallback(node => {
+  const setTarget = useCallback((node) => {
     if (target.current && observer.current) {
-      observer.current.unobserve(target.current)
-      observer.current.disconnect()
-      observer.current = null
+      observer.current.unobserve(target.current);
+      observer.current.disconnect();
+      observer.current = null;
     }
 
     if (node) {
-      observer.current = new IntersectionObserver(callback, { root, rootMargin, threshold })
-      observer.current.observe(node)
-      target.current = node
+      observer.current = new IntersectionObserver(callback, { root, rootMargin, threshold });
+      observer.current.observe(node);
+      target.current = node;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, root, rootMargin, threshold, ...externalState])
+  }, [target, root, rootMargin, threshold, ...externalState]);
 
-  return setTarget
-}
+  return setTarget;
+};
 
-export default useObserver
+export default useObserver;

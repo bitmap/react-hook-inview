@@ -2,9 +2,9 @@ import {
   useEffect,
   useState,
   useCallback,
-} from 'react'
+} from "react";
 
-import useObserver from './useObserver'
+import useObserver from "./useObserver";
 
 interface State {
   inView: boolean
@@ -34,9 +34,9 @@ interface UseInView {
     externalState?: React.ComponentState[]
   ): [
     (node: Element | null) => void,
-    State['inView'],
-    State['entry'],
-    State['observer'],
+    State["inView"],
+    State["entry"],
+    State["observer"],
   ]
 }
 
@@ -53,44 +53,44 @@ const useInView: UseInView = (
     inView: false,
     entry: null,
     observer: null,
-  })
+  });
 
   const callback = useCallback<IntersectionObserverCallback>(([entry], observer) => {
-    const inThreshold = observer.thresholds.some(t => entry.intersectionRatio >= t)
-    const inView = inThreshold && entry.isIntersecting
+    const inThreshold = observer.thresholds.some((t) => entry.intersectionRatio >= t);
+    const inView = inThreshold && entry.isIntersecting;
 
     setState({
       inView,
       entry,
       observer,
-    })
+    });
 
     // unobserveOnEnter
     if (inView && unobserveOnEnter) {
-      observer.unobserve(entry.target)
-      observer.disconnect()
+      observer.unobserve(entry.target);
+      observer.disconnect();
     }
 
     // Legacy callbacks
     if (inView) {
-      onEnter?.(entry, observer)
+      onEnter?.(entry, observer);
     } else {
-      onLeave?.(entry, observer)
+      onLeave?.(entry, observer);
     }
-  }, [onEnter, onLeave, unobserveOnEnter])
+  }, [onEnter, onLeave, unobserveOnEnter]);
 
   const setTarget = useObserver(
     callback,
     { root, rootMargin, threshold },
     [unobserveOnEnter, ...externalState],
-  )
+  );
 
   // Legacy 'target' option
   useEffect(() => {
-    if (target?.current) setTarget(target.current)
-  }, [target, setTarget])
+    if (target?.current) setTarget(target.current);
+  }, [target, setTarget]);
 
-  return [setTarget, state.inView, state.entry, state.observer]
-}
+  return [setTarget, state.inView, state.entry, state.observer];
+};
 
-export default useInView
+export default useInView;
