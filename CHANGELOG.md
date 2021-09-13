@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.11] - 2021-9-13
+
+### Removed
+
+- Storybook
+
+### Changed
+
+- Bump dependencies
+- Move Jest config to file
+
+## [4.3.10] - 2021-5-14
+
+### Changed
+
+- Update linter configs
+
+## [4.3.9] - 2021-4-14
+
+### Changed
+
+- Fix peer dependencies
+
+## [4.3.8] - 2021-2-9
+
+### Changed
+
+- Bump dependencies
+
+## [4.3.7] - 2020-12-11
+
+### Changed
+
+- Bump dependencies
+
+## [4.3.6] - 2020-12-4
+
+### Changed
+
+- Bump dependencies
+
+## [4.3.5] - 2020-11-19
+
+### Changed
+
+- Fix typo
+- Reduce bundle size
+
 ## [4.3.4] - 2020-11-17
 
 ### Added
@@ -16,6 +64,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update tests to render hooks instead of components
 - Update types and fix deps array to appease coverage
 - Add @deprecated flag to legacy options
+
+## [4.3.3] - 2020-10-28
+
+### Changed
+
+- Add options to useCallback dependency array
+
+## [4.3.2] - 2020-10-28
+
+### Changed
+
+- Revert change that removed unobserve on target
 
 ## [4.3.1] - 2020-10-9
 
@@ -130,7 +190,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
-[4.3.4]: https://www.npmjs.com/package/react-hook-inview/
+[4.3.11]: https://www.npmjs.com/package/react-hook-inview/
+[4.3.10]: https://www.npmjs.com/package/react-hook-inview/v/4.3.10
+[4.3.9]: https://www.npmjs.com/package/react-hook-inview/v/4.3.9
+[4.3.8]: https://www.npmjs.com/package/react-hook-inview/v/4.3.8
+[4.3.7]: https://www.npmjs.com/package/react-hook-inview/v/4.3.7
+[4.3.6]: https://www.npmjs.com/package/react-hook-inview/v/4.3.6
+[4.3.5]: https://www.npmjs.com/package/react-hook-inview/v/4.3.5
+[4.3.4]: https://www.npmjs.com/package/react-hook-inview/v/4.3.4
+[4.3.3]: https://www.npmjs.com/package/react-hook-inview/v/4.3.3
+[4.3.2]: https://www.npmjs.com/package/react-hook-inview/v/4.3.2
 [4.3.1]: https://www.npmjs.com/package/react-hook-inview/v/4.3.1
 [4.3.0]: https://www.npmjs.com/package/react-hook-inview/v/4.3.0
 [4.2.0]: https://www.npmjs.com/package/react-hook-inview/v/4.2.0
