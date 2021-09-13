@@ -15,9 +15,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run clean && npm ci && npm run build",
     "lint": "eslint .",
-    "test": "jest",
-    "storybook": "start-storybook -p 6006 --no-dll",
-    "build-storybook": "build-storybook --no-dll"
+    "test": "jest"
   },
   "keywords": [
     "react",
@@ -40,19 +38,13 @@
     "react-dom": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.2",
+    "@babel/core": "^7.15.5",
     "@cabe/eslint-config": "latest",
     "@cabe/eslint-config-typescript": "latest",
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/addons": "^6.2.9",
-    "@storybook/react": "^6.2.9",
-    "@storybook/theming": "^6.2.9",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/react-hooks": "^5.1.2",
-    "@types/jest": "^26.0.23",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.0",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/jest": "^27.0.1",
     "@types/react": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
@@ -60,12 +52,12 @@
     "eslint": "latest",
     "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "latest",
-    "jest": "^26.6.3",
+    "jest": "^27.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.2",
     "react-test-renderer": "^17.0.2",
-    "ts-jest": "^26.5.6",
+    "ts-jest": "^27.0.5",
     "typescript": "latest"
   },
   "jest": {
