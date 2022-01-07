@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.0] - 2022-1-7
+
+### Added
+
+- `defaultInView` option (thanks [@hoangnguyen1247](https://github.com/bitmap/react-hook-inview/pull/22))
+
+
 ## [4.3.11] - 2021-9-13
 
 ### Removed
@@ -190,7 +197,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
-[4.3.11]: https://www.npmjs.com/package/react-hook-inview/
+[4.4.0]: https://www.npmjs.com/package/react-hook-inview/
+[4.3.11]: https://www.npmjs.com/package/react-hook-inview/v/4.3.11
 [4.3.10]: https://www.npmjs.com/package/react-hook-inview/v/4.3.10
 [4.3.9]: https://www.npmjs.com/package/react-hook-inview/v/4.3.9
 [4.3.8]: https://www.npmjs.com/package/react-hook-inview/v/4.3.8
