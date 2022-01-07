@@ -1,6 +1,6 @@
 {
   "name": "react-hook-inview",
-  "version": "4.3.11",
+  "version": "4.4.0",
   "description": "React Hook for detecting when an element is in the viewport",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
