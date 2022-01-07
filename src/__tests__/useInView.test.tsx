@@ -83,6 +83,21 @@ describe("useInView", () => {
     expect(inView).toBe(true);
   });
 
+  test("sets 'defaultInView' option", async () => {
+    const { result } = renderHook(() => useInView({
+      defaultInView: true,
+    }));
+    const [setRef, inView] = result.current;
+
+    const element = document.createElement("div");
+
+    act(() => {
+      setRef(element);
+    });
+
+    expect(inView).toBe(true);
+  });
+
   test("legacy methods", async () => {
     const Component: React.FC = () => {
       const ref = useRef<HTMLDivElement>(null);
