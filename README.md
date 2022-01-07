@@ -120,8 +120,8 @@ const [ref, inView] = useInView(
   {
     onEnter: () => console.log(state),
   },
-  [state],
-) // <- Will update callback
+  [state], // <- Will update callback
+)
 ```
 
 This will remount the intersection observer, and may have unintended side
