@@ -71,6 +71,7 @@ These are the default options.
   onEnter?: (entry?, observer?) => void, // See below
   onLeave?: (entry?, observer?) => void, // See below
   target?: RefObject<Element> | null,    // *DEPRECATED* Supply your own ref object
+  defaultInView?: boolean, // false
 }
 ```
 

@@ -26,6 +26,10 @@ export interface Options extends IntersectionObserverInit {
    * @deprecated Use hook `useInViewEffect` to access observer callback.
    */
   onLeave?: (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void
+  /**
+   * Default `inView` state
+   */
+  defaultInView?: boolean
 }
 
 interface UseInView {
@@ -46,11 +50,11 @@ interface UseInView {
  * @param externalState React.ComponentState[]
  */
 const useInView: UseInView = (
-  { root, rootMargin, threshold, unobserveOnEnter, target, onEnter, onLeave } = {},
+  { root, rootMargin, threshold, unobserveOnEnter, target, onEnter, onLeave, defaultInView } = {},
   externalState = [],
 ) => {
   const [state, setState] = useState<State>({
-    inView: false,
+    inView: defaultInView || false,
     entry: null,
     observer: null,
   });
