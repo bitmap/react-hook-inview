@@ -1,0 +1,21 @@
+# v5.0.0
+
+## Update entry to return `target` instead
+
+Entry has a `time` property that updates constantly. This isn't good for state
+updates, as it will always return a new state. It's probably better if I just
+return the current `entry.target`. If someone needs more granularity, point them
+to the more low-level `useInViewEffect` hook.
+
+## Remove legacy options
+
+`onEnter` and `onLeave` callbacks have been deprecated in favor of the
+`useInViewEffect` hook. `target` is an old leftover from the hook's initial
+implementation. The current API handles these more gracefully.
+
+## Cache observers
+
+Right now a new IntersectionObserver is created each time the hook is used. It
+would be more performant to create a Map where the key is the hashed `options`
+object, the value is the respective IntersectionObserver, and attach entries
+to that. This is a significant refactor, but worth it in the long run.
