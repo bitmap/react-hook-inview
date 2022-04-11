@@ -1,5 +1,5 @@
 {
-  "name": "react-hook-inview",
+  "name": "@nitz-iron/react-hook-inview",
   "version": "4.4.1",
   "description": "React Hook for detecting when an element is in the viewport",
   "main": "dist/index.js",
