@@ -1,6 +1,6 @@
 {
-  "name": "react-hook-inview",
-  "version": "4.4.1",
+  "name": "nitz-in-view",
+  "version": "4.4.2",
   "description": "React Hook for detecting when an element is in the viewport",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -34,8 +34,8 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0" 
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -53,10 +53,10 @@
     "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "latest",
     "jest": "^27.2.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-is": "^17.0.2",
-    "react-test-renderer": "^17.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-is": "^18.0.0",
+    "react-test-renderer": "^18.0.0",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "typescript": "latest"
