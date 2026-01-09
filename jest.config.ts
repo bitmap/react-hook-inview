@@ -4,7 +4,5 @@ export default {
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
-  setupFilesAfterEnv: [
-    "@testing-library/jest-dom/extend-expect",
-  ],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };
