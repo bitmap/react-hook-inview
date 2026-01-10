@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { describe, test, expect } from "vitest";
 import { render, renderHook, act } from "@testing-library/react";
 import { useInView } from "..";
 import { mockInView } from "../__mocks__/mockInView";

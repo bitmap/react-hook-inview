@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { describe, test, expect } from "vitest";
 import { render } from "@testing-library/react";
 import { useInViewEffect } from "..";
 import { mockInView } from "../__mocks__/mockInView";
@@ -10,11 +11,7 @@ describe("useInViewEffect", () => {
       setInview(entry.isIntersecting);
     });
 
-    return (
-      <div ref={ref}>
-        {inView.toString()}
-      </div>
-    );
+    return <div ref={ref}>{inView.toString()}</div>;
   };
 
   test("renders unobserved", () => {
@@ -38,7 +35,6 @@ describe("useInViewEffect", () => {
     expect(getByText("false")).toBeInTheDocument();
   });
 
-
   test("unobserves on enter", async () => {
     const Component2: React.FC = () => {
       const [inView, setInview] = useState(false);
@@ -50,11 +46,7 @@ describe("useInViewEffect", () => {
         }
       });
 
-      return (
-        <div ref={ref}>
-          {inView.toString()}
-        </div>
-      );
+      return <div ref={ref}>{inView.toString()}</div>;
     };
     const { getByText } = render(<Component2 />);
 
