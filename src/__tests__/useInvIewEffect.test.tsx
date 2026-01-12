@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { describe, test, expect } from "vitest";
 import { act, render } from "@testing-library/react";
 import { useInViewEffect } from "..";
-// import { mockInView } from "../__mocks__/mockInView";
 
 import { mockIntersectionObserver } from "jsdom-testing-mocks";
 

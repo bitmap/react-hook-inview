@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { describe, test, expect } from "vitest";
 import { render, renderHook, act } from "@testing-library/react";
 import { useInView } from "..";
-// import { mockInView } from "../__mocks__/mockInView";
 
 import { mockIntersectionObserver } from "jsdom-testing-mocks";
 const io = mockIntersectionObserver();
@@ -132,8 +131,14 @@ describe("useInView", () => {
     const ComponentWithRoot: React.FC = () => {
       const rootRef = useRef<HTMLDivElement | null>(null);
 
+      const [rootEl, setRootEl] = useState<Element | null>(null);
+
+      useEffect(() => {
+        setRootEl(rootRef.current);
+      }, []);
+
       const [ref, , , observer] = useInView({
-        root: rootRef.current,
+        root: rootEl,
       });
       const root = observer?.root;
       const text = !!root;
@@ -148,11 +153,7 @@ describe("useInView", () => {
     const { getByText } = render(<ComponentWithRoot />);
 
     act(() => {
-      io.leaveNode(getByText("false")); // Renders 'undefined' here
-    });
-
-    act(() => {
-      io.leaveNode(getByText("false")); // Renders 'null' here
+      io.triggerNodes([getByText("false")]); // Renders 'undefined' here
     });
 
     expect(getByText("true")).toBeInTheDocument();
