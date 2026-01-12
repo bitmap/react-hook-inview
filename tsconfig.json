@@ -3,13 +3,7 @@
     "outDir": "dist",
     "target": "es5",
     "module": "commonjs",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es6",
-      "es7",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,16 +13,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react",
-    "declaration": true
+    "declaration": true,
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/__tests__",
-    "src/__mocks__",
-    "src/stories"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "src/__tests__"],
 }

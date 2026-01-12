@@ -4,6 +4,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: ["@testing-library/jest-dom/vitest"],
+    setupFiles: "vitest.setup.mts",
+    exclude: ["node_modules", "dist"],
   },
 });

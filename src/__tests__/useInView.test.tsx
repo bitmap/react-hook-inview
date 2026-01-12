@@ -2,7 +2,10 @@ import React, { useState, useRef } from "react";
 import { describe, test, expect } from "vitest";
 import { render, renderHook, act } from "@testing-library/react";
 import { useInView } from "..";
-import { mockInView } from "../__mocks__/mockInView";
+// import { mockInView } from "../__mocks__/mockInView";
+
+import { mockIntersectionObserver } from "jsdom-testing-mocks";
+const io = mockIntersectionObserver();
 
 describe("useInView", () => {
   test("sets ref", async () => {
@@ -13,7 +16,7 @@ describe("useInView", () => {
 
     act(() => {
       setRef(element);
-      mockInView(element, false);
+      io.triggerNodes([element]);
     });
 
     [setRef, inView, entry] = result.current;
@@ -29,7 +32,7 @@ describe("useInView", () => {
 
     act(() => {
       setRef(element);
-      mockInView(element, true);
+      io.enterNode(element);
     });
 
     [setRef, inView, entry] = result.current;
@@ -45,14 +48,14 @@ describe("useInView", () => {
 
     act(() => {
       setRef(element);
-      mockInView(element, true);
+      io.enterNode(element);
     });
 
     [setRef, inView] = result.current;
     expect(inView).toBe(true);
 
     act(() => {
-      mockInView(element, false);
+      io.leaveNode(element);
     });
 
     [setRef, inView] = result.current;
@@ -67,14 +70,14 @@ describe("useInView", () => {
 
     act(() => {
       setRef(element);
-      mockInView(element, true);
+      io.enterNode(element);
     });
 
     [setRef, inView] = result.current;
     expect(inView).toBe(true);
 
     act(() => {
-      mockInView(element, false);
+      io.enterNode(element);
     });
 
     [setRef, inView] = result.current;
@@ -112,8 +115,15 @@ describe("useInView", () => {
     };
     const { getByText } = render(<Component />);
 
-    mockInView(getByText("false"), true);
-    mockInView(getByText("true"), false);
+    act(() => {
+      io.enterNode(getByText("false"));
+    });
+
+    expect(getByText("true")).toBeInTheDocument();
+
+    act(() => {
+      io.leaveNode(getByText("true"));
+    });
 
     expect(getByText("false")).toBeInTheDocument();
   });
@@ -137,8 +147,13 @@ describe("useInView", () => {
 
     const { getByText } = render(<ComponentWithRoot />);
 
-    mockInView(getByText("false"), false); // Renders 'undefined' here
-    mockInView(getByText("false"), false); // Renders 'null' here
+    act(() => {
+      io.leaveNode(getByText("false")); // Renders 'undefined' here
+    });
+
+    act(() => {
+      io.leaveNode(getByText("false")); // Renders 'null' here
+    });
 
     expect(getByText("true")).toBeInTheDocument();
   });

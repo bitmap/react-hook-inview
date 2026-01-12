@@ -1,7 +1,10 @@
 src
 node_modules
+coverage
 *.log
 .DS_Store
-.eslintrc
+.eslint.config.json
 .eslintignore
 tsconfig.json
+tsconfig.*.json
+vitest.*

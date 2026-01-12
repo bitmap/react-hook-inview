@@ -50,14 +50,14 @@ const Component = () => {
 
 ### TypeScript Example
 
-The hook is fully typed and works seamlessly with TypeScript:
+The hook works seamlessly with TypeScript:
 
 ```tsx
 import React from 'react'
-import { useInView, Options } from 'react-hook-inview'
+import { useInView, UseInViewOptions } from 'react-hook-inview'
 
 const Component: React.FC = () => {
-  const options: Options = {
+  const options: UseInViewOptions = {
     threshold: 0.5,
     unobserveOnEnter: true,
   }
@@ -91,7 +91,7 @@ const [ref, inView, entry, observer] = useInView(options, [...state])
 These are the default options.
 
 ```ts
-interface Options {
+interface UseInViewOptions {
   root?: Element | Document | null    // Optional, must be a parent of your ref
   rootMargin?: string                 // '0px' or '0px 0px 0px 0px', also accepts '%' unit
   threshold?: number | number[]       // 0.5 or [0, 0.5, 1]
@@ -183,7 +183,7 @@ Keep in mind that the first argument will return an array.
 The `useInViewEffect` hook has more limited options that mirror the default API.
 
 ```ts
-interface Options {
+{
   root?: Element | Document | null // Optional, must be a parent of your ref
   rootMargin?: string              // '0px' or '0px 0px 0px 0px', also accepts '%' unit
   threshold?: number | number[]    // 0.5 or [0, 0.5, 1]
