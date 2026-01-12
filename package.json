@@ -15,7 +15,10 @@
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/bitmap/react-hook-inview",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitmap/react-hook-inview.git"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "vitest run",
