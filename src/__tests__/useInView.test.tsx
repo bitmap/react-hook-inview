@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
-import { render } from "@testing-library/react";
-import { renderHook, act } from "@testing-library/react-hooks";
+import React, { useState, useRef, useEffect } from "react";
+import { describe, test, expect } from "vitest";
+import { render, renderHook, act } from "@testing-library/react";
 import { useInView } from "..";
-import { mockInView } from "../__mocks__/mockInView";
+
+import { mockIntersectionObserver } from "jsdom-testing-mocks";
+const io = mockIntersectionObserver();
 
 describe("useInView", () => {
   test("sets ref", async () => {
@@ -13,10 +15,10 @@ describe("useInView", () => {
 
     act(() => {
       setRef(element);
-      mockInView(element, false);
-    })
+      io.triggerNodes([element]);
+    });
 
-    ;[setRef, inView, entry] = result.current;
+    [setRef, inView, entry] = result.current;
     expect(entry?.target).toBe(element);
     expect(inView).toBe(false);
   });
@@ -29,10 +31,10 @@ describe("useInView", () => {
 
     act(() => {
       setRef(element);
-      mockInView(element, true);
-    })
+      io.enterNode(element);
+    });
 
-    ;[setRef, inView, entry] = result.current;
+    [setRef, inView, entry] = result.current;
     expect(entry?.target).toBe(element);
     expect(inView).toBe(true);
   });
@@ -45,48 +47,44 @@ describe("useInView", () => {
 
     act(() => {
       setRef(element);
-      mockInView(element, true);
-    })
+      io.enterNode(element);
+    });
 
-    ;[setRef, inView] = result.current;
+    [setRef, inView] = result.current;
     expect(inView).toBe(true);
 
     act(() => {
-      mockInView(element, false);
-    })
+      io.leaveNode(element);
+    });
 
-    ;[setRef, inView] = result.current;
+    [setRef, inView] = result.current;
     expect(inView).toBe(false);
   });
 
   test("unobserves on enter", async () => {
-    const { result } = renderHook(() => useInView({
-      unobserveOnEnter: true,
-    }));
+    const { result } = renderHook(() => useInView({ unobserveOnEnter: true }));
     let [setRef, inView] = result.current;
 
     const element = document.createElement("div");
 
     act(() => {
       setRef(element);
-      mockInView(element, true);
-    })
+      io.enterNode(element);
+    });
 
-    ;[setRef, inView] = result.current;
+    [setRef, inView] = result.current;
     expect(inView).toBe(true);
 
     act(() => {
-      mockInView(element, false);
-    })
+      io.enterNode(element);
+    });
 
-    ;[setRef, inView] = result.current;
+    [setRef, inView] = result.current;
     expect(inView).toBe(true);
   });
 
   test("sets 'defaultInView' option", async () => {
-    const { result } = renderHook(() => useInView({
-      defaultInView: true,
-    }));
+    const { result } = renderHook(() => useInView({ defaultInView: true }));
     const [setRef, inView] = result.current;
 
     const element = document.createElement("div");
@@ -112,44 +110,51 @@ describe("useInView", () => {
         },
       });
 
-      return (
-        <div ref={ref}>
-          {inView.toString()}
-        </div>
-      );
+      return <div ref={ref}>{inView.toString()}</div>;
     };
     const { getByText } = render(<Component />);
 
-    mockInView(getByText("false"), true);
-    mockInView(getByText("true"), false);
+    act(() => {
+      io.enterNode(getByText("false"));
+    });
+
+    expect(getByText("true")).toBeInTheDocument();
+
+    act(() => {
+      io.leaveNode(getByText("true"));
+    });
 
     expect(getByText("false")).toBeInTheDocument();
   });
-
 
   test("root option", async () => {
     const ComponentWithRoot: React.FC = () => {
       const rootRef = useRef<HTMLDivElement | null>(null);
 
-      const [ref, ,, observer] = useInView({
-        root: rootRef.current,
+      const [rootEl, setRootEl] = useState<Element | null>(null);
+
+      useEffect(() => {
+        setRootEl(rootRef.current);
+      }, []);
+
+      const [ref, , , observer] = useInView({
+        root: rootEl,
       });
       const root = observer?.root;
       const text = !!root;
 
       return (
         <div ref={rootRef}>
-          <div ref={ref}>
-            {text.toString()}
-          </div>
+          <div ref={ref}>{text.toString()}</div>
         </div>
       );
     };
 
     const { getByText } = render(<ComponentWithRoot />);
 
-    mockInView(getByText("false"), false); // Renders 'undefined' here
-    mockInView(getByText("false"), false); // Renders 'null' here
+    act(() => {
+      io.triggerNodes([getByText("false")]); // Renders 'undefined' here
+    });
 
     expect(getByText("true")).toBeInTheDocument();
   });
