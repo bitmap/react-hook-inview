@@ -5,13 +5,6 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "require": "./dist/index.js"
-    }
-  },
   "files": [
     "dist"
   ],
@@ -23,6 +16,7 @@
     "lint": "eslint .",
     "test": "vitest run",
     "build": "rm -rf dist && tsc && tsc -p tsconfig.esm.json",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

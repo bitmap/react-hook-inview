@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import type { ComponentState, RefObject } from "react";
 
 import useObserver from "./useObserver";
 
@@ -13,7 +14,7 @@ export interface UseInViewOptions extends IntersectionObserverInit {
   /**
    * @deprecated Use setRef callback.
    */
-  target?: React.RefObject<Element | null>;
+  target?: RefObject<Element | null>;
   /**
    * @deprecated Use hook `useInViewEffect` to access observer callback.
    */
@@ -34,10 +35,15 @@ export interface UseInViewOptions extends IntersectionObserverInit {
   defaultInView?: boolean;
 }
 
+/**
+ * @deprecated Use `UseInViewOptions`.
+ */
+export type Options = UseInViewOptions;
+
 interface UseInView {
   (
     options?: UseInViewOptions,
-    externalState?: React.ComponentState[],
+    externalState?: ComponentState[],
   ): [
     (node: Element | null) => void,
     State["inView"],
@@ -49,7 +55,7 @@ interface UseInView {
 /**
  * useInView
  * @param options IntersectionObserverInit
- * @param externalState React.ComponentState[]
+ * @param externalState ComponentState[]
  */
 const useInView: UseInView = (
   {

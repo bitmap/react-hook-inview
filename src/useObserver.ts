@@ -1,10 +1,11 @@
 import { useRef, useCallback } from "react";
+import type { ComponentState } from "react";
 
 interface UseObserver {
   (
     callback: IntersectionObserverCallback,
     options?: IntersectionObserverInit,
-    externalState?: React.ComponentState[],
+    externalState?: ComponentState[],
   ): (node: Element | null) => void;
 }
 
@@ -12,7 +13,7 @@ interface UseObserver {
  * useObserver
  * @param callback IntersectionObserverCallback
  * @param options IntersectionObserverInit
- * @param externalState React.ComponentState[]
+ * @param externalState ComponentState[]
  */
 const useObserver: UseObserver = (
   callback,
