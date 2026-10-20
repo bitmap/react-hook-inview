@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.6.0] - 2026-10-20
+
+### Added
+
+- Export `UseInViewOptions` type from the package root
+- Test against React 19
+- Browser support and TypeScript sections in the README
+
+### Deprecated
+
+- `Options` type, use `UseInViewOptions` instead
+
+### Changed
+
+- Replace Jest with Vitest
+- Replace custom ESLint configs with ESLint flat config and Prettier
+- Bump dependencies
+- Fix `repository` field in package.json
+
+## [4.5.1] - 2024-4-29
+
+### Changed
+
+- Widen `react` and `react-dom` peer dependency ranges to `>= 16.8.0`
+
+## [4.5.0] - 2022-5-5
+
+### Added
+
+- React 18 support
+
+## [4.4.1] - 2022-2-12
+
+### Fixed
+
+- Infinite loop when an array is passed as `threshold`
+
 ## [4.4.0] - 2022-1-7
 
 ### Added
@@ -196,7 +233,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
-[4.4.0]: https://www.npmjs.com/package/react-hook-inview/
+[4.6.0]: https://www.npmjs.com/package/react-hook-inview/v/4.6.0
+[4.5.1]: https://www.npmjs.com/package/react-hook-inview/v/4.5.1
+[4.5.0]: https://www.npmjs.com/package/react-hook-inview/v/4.5.0
+[4.4.1]: https://www.npmjs.com/package/react-hook-inview/v/4.4.1
+[4.4.0]: https://www.npmjs.com/package/react-hook-inview/v/4.4.0
 [4.3.11]: https://www.npmjs.com/package/react-hook-inview/v/4.3.11
 [4.3.10]: https://www.npmjs.com/package/react-hook-inview/v/4.3.10
 [4.3.9]: https://www.npmjs.com/package/react-hook-inview/v/4.3.9
