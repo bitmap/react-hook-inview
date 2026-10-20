@@ -40,7 +40,7 @@ const useObserver: UseObserver = (
         target.current = node;
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
     [root, rootMargin, JSON.stringify(threshold), ...externalState],
   );
 
