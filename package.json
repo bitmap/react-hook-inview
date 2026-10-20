@@ -23,7 +23,9 @@
     "lint": "eslint .",
     "test": "vitest run",
     "build": "rm -rf dist && tsc && tsc -p tsconfig.esm.json",
-    "prepublishOnly": "npm run lint && npm run test && npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "react",
@@ -46,8 +48,7 @@
     "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
-    "@cabe/eslint-config": "^2.0.1",
-    "@cabe/eslint-config-typescript": "^2.0.1",
+    "@eslint/js": "^9.39.5",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@types/react": "^19.2.8",
@@ -55,11 +56,14 @@
     "eslint": "^9.39.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.13.0",
     "jsdom": "^27.4.0",
     "jsdom-testing-mocks": "^1.16.0",
+    "prettier": "^3.9.10",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.0",
     "vitest": "^4.0.17"
   }
 }

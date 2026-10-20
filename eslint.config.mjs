@@ -1,12 +1,12 @@
-import cabe from "@cabe/eslint-config";
-import typescript from "@cabe/eslint-config-typescript";
+import js from "@eslint/js";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default [
-  ...cabe,
-  ...typescript,
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
     plugins: {

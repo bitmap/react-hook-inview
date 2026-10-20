@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `defaultInView` option (thanks [@hoangnguyen1247](https://github.com/bitmap/react-hook-inview/pull/22))
 
-
 ## [4.3.11] - 2021-9-13
 
 ### Removed
